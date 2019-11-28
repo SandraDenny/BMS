@@ -15,4 +15,9 @@ class Bank:
         
     def addUser(self):
         pass
+    def createaccount(self):
+        pass
+    def showlist(self):
+        pass
+    
         

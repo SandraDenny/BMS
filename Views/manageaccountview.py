@@ -48,13 +48,16 @@ def add_new_account_func():
     newuser = User()
     uname  = input("Please enter your name:")
     newuser.Name = uname
-    
     print(f"Entered name is {uname}")
+    
     uadress =input("please enter your adress:")
     newuser.Address = uadress
-    
-    
     print(f"entered adress is {uadress}")
+    
+    DOB = input("please enter your DOB:")
+    newuser.DOB = DOB
+    print(f"entered DOB is {DOB}")
+    
     uinitialdeposit = input("please enter your initial amount of deposit (not less than 500):")
     print(f"entered initial amount of deposit is {uinitialdeposit}")
     

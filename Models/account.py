@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Nov 28 12:03:46 2019
+Created on Thu Nov 28 13:27:14 2019
 
 @author: admaren
 """
 
-class User:
-    
+class account:
     def __init__(self):
-        print("New user creation")
-        self.Name = None
-        self.Address = None
-        self.DOB = None
-
-        self.acc_valid = False
+        print("exixting account functions")
         self.transactions = []
+        
+    def putInitialDeposit(self, amount):
+        if amount < 500:
+            print("Initial deposit must not be less than 500 INR")
+            self.acc_valid = False
+        else:
+            self.acc_valid = True
+            
+        self.addTransaction(amount)
+        
+
     
-    
-    
-    
-    def balenquiry(self):
+   def balenquiry(self):
         """function used to check the balance in the account : bal amount
         """
         pass
@@ -36,25 +38,5 @@ class User:
         """function used to see the transactions undertaken in the account : transactions with their transaction id
         """
         pass
-    def edituserdetails(self):
-        """function used to edit the users information : modifications
-        """
-        pass
-    
             
         
-    
-
-#
-#
-#sandra = User()
-#sandra.Name = "Sandra"
-#
-#
-#user2 = User()
-#user2.Name = "Rahul"
-#
-#user2.Address = "sfsljdlkfjslf"
-#
-#
-#print(sandra.Name)
