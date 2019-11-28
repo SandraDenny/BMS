@@ -4,35 +4,61 @@
 Created on Fri Nov 22 18:01:11 2019
 
 @author: admaren
+
 """
 
+import sys
+
+sys.path.append("/home/admaren/Documents/BankManagementSys")
+
+
+
+from Models import User
+
 manage_accounts_contents="""
+
+USER MANAGEMENT
+==== =========
+
 1.add a new account
 2.account closing
 3.list of users
-4.edit user details
+
+Enter x to exit this page
 :"""
 def manage_account_viewfunc():
     
-    mres = input(manage_accounts_contents)
-    if mres == "1":
-        add_new_account_func()
-    elif mres == "2":
-        closing_account_func()
-    elif mres == "3":
-        list_of_users_func()
+    while 1:
+    
+        mres = input(manage_accounts_contents)
+        if mres == "1":
+            add_new_account_func()
+        elif mres == "2":
+            closing_account_func()
+        elif mres == "3":
+            list_of_users_func()
+            
+        elif mres == "x":
+            break
     
 
 
 def add_new_account_func():
     print(" wer are going to add new account")
+    newuser = User()
     uname  = input("Please enter your name:")
+    newuser.Name = uname
     
     print(f"Entered name is {uname}")
     uadress =input("please enter your adress:")
+    newuser.Address = uadress
+    
+    
     print(f"entered adress is {uadress}")
     uinitialdeposit = input("please enter your initial amount of deposit (not less than 500):")
     print(f"entered initial amount of deposit is {uinitialdeposit}")
+    
+    newuser.putInitialDeposit(float(uinitialdeposit))
     uaccounttypefunc()
     
 uaccounttypecontents="""

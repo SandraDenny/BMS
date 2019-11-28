@@ -19,4 +19,6 @@ Welcome_contents ="""
 1. Manage Accounts
 2. User Accounts
 
+Enter x to quit!!
+
 """
