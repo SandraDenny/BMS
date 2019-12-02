@@ -12,22 +12,37 @@ user_home_contents = """
 3.withdrawal
 4.show transactions
 5.edit user details 
+
+Enter x to go back to main view
 """
 
 user_wrong_password_result = "User Not found"
+
+
+
+def login_page():
+    loginpageview= """
+    """
+    
+    # if login is success
+    # got to user_home_....
 def user_home_contents_viewfunc():
     
-    res1 = input(user_home_contents)
-    if res1 == "1":
-        balance_enquiry_func()
-    elif res1 == "2":
-        deposit_func()
-    elif res1 == "3":
-        withdrawal_func()
-    elif res1 == "4":
-        show_transactions_func()
-    elif res1 == "5":
-        edit_user_details_func()
+    
+    while 1:
+        res1 = input(user_home_contents)
+        if res1 == "1":
+            balance_enquiry_func()
+        elif res1 == "2":
+            deposit_func()
+        elif res1 == "3":
+            withdrawal_func()
+        elif res1 == "4":
+            show_transactions_func()
+        elif res1 == "5":
+            edit_user_details_func()
+        elif res1.upper() == "X":
+            break
     
 def balance_enquiry_func():
     accountno = input("enter your account number :")

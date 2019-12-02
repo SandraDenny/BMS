@@ -19,9 +19,7 @@ class UserModel(BaseModel):
     Name = CharField(unique=False)
     Address = CharField(unique=False)
     DOB = DateTimeField()
-
-
-
+    
 
 class AccountModel(BaseModel):
     accounttype = CharField()
@@ -34,11 +32,12 @@ class TransactionModel(BaseModel):
 
 
 if __name__ == "__main__":
-#    db.create_tables([UserModel, AccountModel, TransactionModel])
+    pass
+    db.create_tables([UserModel, AccountModel, TransactionModel])
 #    
-#    
-#    
-#    
+    
+    
+    
 #    user2 = UserModel.create(Name = "User2", Address = "pilakkat house", DOB = datetime.datetime.now())
 #    
 #    acc = AccountModel.create(user= user2, accounttype="CURRENT")
@@ -47,7 +46,7 @@ if __name__ == "__main__":
 #        TransactionModel.create(amount = i *10, account= acc)
 #
 ##
-    
-    transquery = TransactionModel.select().join(AccountModel).where(AccountModel.accounttype=="SAVINGS")
-    for t in transquery:
-        print(t.account.user.Name)
+#    
+#    transquery = TransactionModel.select().join(AccountModel).where(AccountModel.accounttype=="SAVINGS")
+#    for t in transquery:
+#        print(t.account.user.Name)

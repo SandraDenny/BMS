@@ -6,9 +6,11 @@ Created on Thu Nov 28 13:27:14 2019
 @author: admaren
 """
 
-class account:
+from .dbmodels import AccountModel
+
+class Account:
     def __init__(self):
-        print("exixting account functions")
+#        print("exixting account functions")
         self.transactions = []
         
     def putInitialDeposit(self, amount):
@@ -19,13 +21,16 @@ class account:
             self.acc_valid = True
             
         self.addTransaction(amount)
-        
-
     
-   def balenquiry(self):
+    def AccountAddToDB(self, user, atype):
+        acc = AccountModel.create(user= user, accounttype=atype)
+        return acc
+
+    def balenquiry(self):
         """function used to check the balance in the account : bal amount
         """
         pass
+    
     def deposit(self):
         """function used to deposit money : deposit amount
         """

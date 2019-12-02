@@ -13,7 +13,7 @@ sys.path.append("/home/admaren/Documents/BankManagementSys")
 
 
 
-from Models import User
+from Models import User, Account, Transaction
 
 manage_accounts_contents="""
 
@@ -54,15 +54,29 @@ def add_new_account_func():
     newuser.Address = uadress
     print(f"entered adress is {uadress}")
     
-    DOB = input("please enter your DOB:")
-    newuser.DOB = DOB
+    DOB = input("please enter your DOB:") # string 
+    newuser.DOB = DOB # convert DOB to datetime datatime
     print(f"entered DOB is {DOB}")
+    
+    umodel = newuser.AddToDB()
+    
+    acc = Account()
+    
+    
+    typ = uaccounttypefunc()
+    amodel = acc.AccountAddToDB(umodel, typ)
     
     uinitialdeposit = input("please enter your initial amount of deposit (not less than 500):")
     print(f"entered initial amount of deposit is {uinitialdeposit}")
     
-    newuser.putInitialDeposit(float(uinitialdeposit))
-    uaccounttypefunc()
+    t0 = Transaction()
+    
+    t0.amount = float(uinitialdeposit)
+    t0.addTransactionToDB(amodel)
+#    newuser.putInitialDeposit(float(uinitialdeposit))
+    
+    
+    
     
 uaccounttypecontents="""
 Choose your account type
@@ -74,16 +88,11 @@ Choose your account type
 def uaccounttypefunc():
     res=input(uaccounttypecontents)
     if res=="1":
-        create_saving_acc_func()
+        return "SAVINGS"
     elif res=="2":
-        create_current_acc_func()
+        return "CURRENT"
         
-    
-def create_saving_acc_func():
-    print("savings account created")
-def create_current_acc_func():
-    print("current account created")
-    print("your account number is:")   
+
     
 def closing_account_func():
     print("we are going to delete an exixting account")

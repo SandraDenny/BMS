@@ -6,30 +6,27 @@ Created on Thu Nov 28 13:27:14 2019
 @author: admaren
 """
 
-class transaction:
+from .dbmodels import TransactionModel
+
+class Transaction:
     def __init__(self):
         print("exixting account functions")
+        self.amount =0
         
-def putInitialDeposit(self, amount):
-        if amount < 500:
-            print("Initial deposit must not be less than 500 INR")
-            self.acc_valid = False
-        else:
-            self.acc_valid = True
-            
-        self.addTransaction(amount)
+
         
+
     
-    
-    def addTransaction(self, amount):
+    def addTransactionToDB(self, accmodel):
         """Function used to add transation to the user
         
         amount : transaction amount
         """
-        pass
+        trmodel = TransactionModel.create(amount=self.amount, account= accmodel)
+        return trmodel
     
     def showTransactions(self):
         pass
-    def 
+     
             
         
