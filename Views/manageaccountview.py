@@ -101,6 +101,7 @@ def closing_account_func():
 
 def list_of_users_func():
     print(f"the list of account holders are:")
+    User.ListUsers()
     
 
     

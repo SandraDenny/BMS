@@ -9,7 +9,9 @@ Created on Thu Nov 28 15:30:50 2019
 import datetime
 from peewee import *
 
-db = SqliteDatabase('bms_test.db')
+
+
+db = SqliteDatabase('/home/admaren/Documents/BankManagementSys/Models/bms_test.db')
 
 class BaseModel(Model):
     class Meta:
@@ -32,7 +34,6 @@ class TransactionModel(BaseModel):
 
 
 if __name__ == "__main__":
-    pass
     db.create_tables([UserModel, AccountModel, TransactionModel])
 #    
     

@@ -6,7 +6,8 @@ Created on Thu Nov 28 13:27:14 2019
 @author: admaren
 """
 
-from .dbmodels import AccountModel
+from .dbmodels import AccountModel, TransactionModel
+from .transaction import Transaction
 
 class Account:
     def __init__(self):
@@ -25,16 +26,39 @@ class Account:
     def AccountAddToDB(self, user, atype):
         acc = AccountModel.create(user= user, accounttype=atype)
         return acc
-
-    def balenquiry(self):
+    
+    @staticmethod
+    def balenquiry(accid):
         """function used to check the balance in the account : bal amount
         """
-        pass
+        # aq = AccountModel.select(AccountModel).where(AccountModel.id==accid).execute()[0]
+        
+        rq = TransactionModel.select().join(AccountModel).where(AccountModel.id==accid)
+        
+        bal = 0
+        for tr in rq:
+            bal += tr.amount
+            
+        
+        print(f"Account balance :{bal}")
     
-    def deposit(self):
+    @staticmethod
+    def deposit(acc_id:int, amount:float):
         """function used to deposit money : deposit amount
         """
-        pass
+        t0 = Transaction()
+    
+        t0.amount = float(amount)
+        aq = AccountModel.select().where(AccountModel.id == acc_id)
+        
+        # add transaction to transaction db with selected account id
+        for acc in aq:
+            t0.addTransactionToDB(acc)
+            print(f"Transaction added to account :{acc_id}, amount :{amount}")
+        
+        
+        
+        
     def withdrawal(self):
         """function used to withdraw money : withdrawal amount
         """

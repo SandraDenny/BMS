@@ -14,6 +14,9 @@ from Views.welcome import Welcome_contents
 from Views.UserHomeView import user_home_contents_viewfunc
 from Views.manageaccountview import manage_account_viewfunc
 
+
+
+
 while 1:
 
     user_ans1 = input(Welcome_contents)

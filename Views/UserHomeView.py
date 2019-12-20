@@ -6,6 +6,8 @@ Created on Fri Nov 22 17:51:02 2019
 @author: admaren
 """
 
+from Models import User, Account, Transaction
+
 user_home_contents = """
 1.balance enquiry
 2.deposit
@@ -45,12 +47,14 @@ def user_home_contents_viewfunc():
             break
     
 def balance_enquiry_func():
-    accountno = input("enter your account number :")
-    print("your balace amount is")
+    
+    daccountno = input("enter your account number :")
+    Account.balenquiry(int(daccountno))
 
 def deposit_func():
     daccountno = input("enter your account number :")
     amount = input("enter amount of deposit :")
+    Account.deposit(int(daccountno), float(amount))
     print(f"you have deposited {amount}")
 
 def withdrawal_func():
