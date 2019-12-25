@@ -6,8 +6,29 @@ Created on Fri Nov 22 17:51:02 2019
 @author: admaren
 """
 
-from Models import User, Account, Transaction
+from Models import User, Account, Transaction, TransactionModel, UserModel, AccountModel
 
+import npyscreen
+
+
+class BalEnquiryButtonPress(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.parent.tit.value  = "sdkjflks"
+        self.parent.display()
+
+class UserHomeViewForm(npyscreen.ActionForm):
+    def create(self):
+        self.tit = self.add(npyscreen.FixedText, name = "UView", value= "User Views" )
+        self.add(npyscreen.TitleText, name="Enter Account number:", value="")
+        self.exitButton = self.add(BalEnquiryButtonPress, name="Balance Enquiry")
+        
+        
+    def on_ok(self):
+        self.parentApp.change_form("MAIN")
+        
+    
+
+_hdr  = "\n"*2 +36*"#" + "\n"*2 
 user_home_contents = """
 1.balance enquiry
 2.deposit
@@ -54,17 +75,20 @@ def balance_enquiry_func():
 def deposit_func():
     daccountno = input("enter your account number :")
     amount = input("enter amount of deposit :")
-    Account.deposit(int(daccountno), float(amount))
+    Account.deposit(int(daccountno), abs(float(amount)))
     print(f"you have deposited {amount}")
 
 def withdrawal_func():
     accountno = input("enter your account number :")
     wamount = input("enter amount of withdrawal :")
+    #amount = input("enter amount of deposit :")
+    Account.deposit(int(accountno), -1* float(wamount))
     print(f"you have withdrawed {wamount}")
 
 def show_transactions_func():
     accountno = input("enter your account number :")
-    print("your transactions are:")
+    Account.showTransactions(int(accountno))
+        
 
 def edit_user_details_func():
     accountno = input("enter your account number:")

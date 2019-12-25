@@ -11,7 +11,7 @@ import sys
 
 sys.path.append("/home/admaren/Documents/BankManagementSys")
 
-
+_hdr  = "\n"*2 +36*"#"+"\n"*2 
 
 from Models import User, Account, Transaction
 
@@ -60,11 +60,10 @@ def add_new_account_func():
     
     umodel = newuser.AddToDB()
     
-    acc = Account()
-    
+
     
     typ = uaccounttypefunc()
-    amodel = acc.AccountAddToDB(umodel, typ)
+    amodel = Account.AccountAddToDB(umodel, typ)
     
     uinitialdeposit = input("please enter your initial amount of deposit (not less than 500):")
     print(f"entered initial amount of deposit is {uinitialdeposit}")
@@ -100,9 +99,11 @@ def closing_account_func():
     print(f"account number {uaccountno} is deleted")
 
 def list_of_users_func():
+    print(_hdr)
     print(f"the list of account holders are:")
     User.ListUsers()
     
+    print(_hdr)
 
     
     

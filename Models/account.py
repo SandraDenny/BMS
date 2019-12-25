@@ -5,25 +5,15 @@ Created on Thu Nov 28 13:27:14 2019
 
 @author: admaren
 """
-
+_hdr  = "\n"*2 +36*"#"+"\n"*2 
 from .dbmodels import AccountModel, TransactionModel
 from .transaction import Transaction
 
 class Account:
-    def __init__(self):
-#        print("exixting account functions")
-        self.transactions = []
-        
-    def putInitialDeposit(self, amount):
-        if amount < 500:
-            print("Initial deposit must not be less than 500 INR")
-            self.acc_valid = False
-        else:
-            self.acc_valid = True
-            
-        self.addTransaction(amount)
-    
-    def AccountAddToDB(self, user, atype):
+
+
+    @staticmethod
+    def AccountAddToDB(user, atype):
         acc = AccountModel.create(user= user, accounttype=atype)
         return acc
     
@@ -48,24 +38,35 @@ class Account:
         """
         t0 = Transaction()
     
-        t0.amount = float(amount)
+        t0.amount = (float(amount))
         aq = AccountModel.select().where(AccountModel.id == acc_id)
         
         # add transaction to transaction db with selected account id
+        print(_hdr)
         for acc in aq:
             t0.addTransactionToDB(acc)
             print(f"Transaction added to account :{acc_id}, amount :{amount}")
+        print(_hdr)
         
         
         
-        
-    def withdrawal(self):
-        """function used to withdraw money : withdrawal amount
-        """
-        pass
-    def showtransaction(self):
+
+    
+    
+
+       
+    @staticmethod
+    def showTransactions(accountno):
         """function used to see the transactions undertaken in the account : transactions with their transaction id
         """
-        pass
+        query = TransactionModel.select().join(AccountModel).where(AccountModel.id == int(accountno))
+    
+        print(_hdr)
+        print(f"Transaction details for the account {accountno} are ")
+        for tr in query:
+            amt = tr.amount
+            dstr = tr.date.strftime("%d,%B %Y")
+            print(f"{dstr} ...  {amt:12.3f}")
+        print(_hdr)
             
         

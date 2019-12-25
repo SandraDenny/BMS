@@ -5,8 +5,9 @@ Created on Thu Nov 28 13:27:14 2019
 
 @author: admaren
 """
-
-from .dbmodels import TransactionModel
+_hdr  = "\n"*2 +36*"#"+"\n"*2 
+from .dbmodels import TransactionModel, AccountModel
+import datetime
 
 class Transaction:
     def __init__(self):
@@ -22,11 +23,10 @@ class Transaction:
         
         amount : transaction amount
         """
-        trmodel = TransactionModel.create(amount=self.amount, account= accmodel)
+        trmodel = TransactionModel.create(amount=self.amount, account= accmodel, date = datetime.datetime.now() )
         return trmodel
     
-    def showTransactions(self):
-        pass
-     
+
+         
             
         

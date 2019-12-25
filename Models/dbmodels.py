@@ -28,8 +28,9 @@ class AccountModel(BaseModel):
     user = ForeignKeyField(UserModel, backref='accounts')
     
 class TransactionModel(BaseModel):
-    amount = FloatField()
+    amount:float = FloatField()
     account = ForeignKeyField(AccountModel, backref='transactions')
+    date = DateTimeField()
     
 
 
