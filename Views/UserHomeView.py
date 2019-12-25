@@ -11,20 +11,42 @@ from Models import User, Account, Transaction, TransactionModel, UserModel, Acco
 import npyscreen
 
 
+
 class BalEnquiryButtonPress(npyscreen.ButtonPress):
     def whenPressed(self):
-        self.parent.tit.value  = "sdkjflks"
-        self.parent.display()
+        try:
+            ano = int(self.parent.accoutno.value)
+            val = Account.balenquiry(ano)
+            self.parent.ResView.values  = [f"Balance     {val:0.3f}"]
+            self.parent.display()
+        except ValueError:
+            pass
+
+class ListTransactionsButtonPress(npyscreen.ButtonPress):
+    def whenPressed(self):
+        try:
+            ano = int(self.parent.accoutno.value)
+            val = Account.balenquiry(ano)
+            reslist = Account.showTransactions(int(ano))
+            self.parent.ResView.values = reslist
+            self.parent.display()
+        except:
+            pass
 
 class UserHomeViewForm(npyscreen.ActionForm):
     def create(self):
         self.tit = self.add(npyscreen.FixedText, name = "UView", value= "User Views" )
-        self.add(npyscreen.TitleText, name="Enter Account number:", value="")
+        self.accoutno = self.add(npyscreen.TitleText, name="Enter Account number:", value="")
         self.exitButton = self.add(BalEnquiryButtonPress, name="Balance Enquiry")
-        
+        self.lstTransButton = self.add(ListTransactionsButtonPress, name="Transaction list")
+        self.ResView = self.add(npyscreen.BoxTitle, name="Query", max_height=6)
+        self.ResView.entry_widget.scroll_exit = True
         
     def on_ok(self):
         self.parentApp.change_form("MAIN")
+    
+    def bal_enquiry(self):
+        pass
         
     
 

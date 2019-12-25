@@ -28,9 +28,10 @@ class Account:
         bal = 0
         for tr in rq:
             bal += tr.amount
-            
         
-        print(f"Account balance :{bal}")
+        return bal
+        
+        #print(f"Account balance :{bal}")
     
     @staticmethod
     def deposit(acc_id:int, amount:float):
@@ -63,10 +64,12 @@ class Account:
     
         print(_hdr)
         print(f"Transaction details for the account {accountno} are ")
+        reslist = []
         for tr in query:
             amt = tr.amount
             dstr = tr.date.strftime("%d,%B %Y")
-            print(f"{dstr} ...  {amt:12.3f}")
-        print(_hdr)
+            v = f"{dstr} ...  {amt:12.3f}"
+            reslist.append(v)
+        return reslist
             
         
