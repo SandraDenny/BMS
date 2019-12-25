@@ -43,11 +43,11 @@ class Account:
         aq = AccountModel.select().where(AccountModel.id == acc_id)
         
         # add transaction to transaction db with selected account id
-        print(_hdr)
+       # print(_hdr)
         for acc in aq:
             t0.addTransactionToDB(acc)
-            print(f"Transaction added to account :{acc_id}, amount :{amount}")
-        print(_hdr)
+       #     print(f"Transaction added to account :{acc_id}, amount :{amount}")
+      #  print(_hdr)
         
         
         
@@ -62,8 +62,8 @@ class Account:
         """
         query = TransactionModel.select().join(AccountModel).where(AccountModel.id == int(accountno))
     
-        print(_hdr)
-        print(f"Transaction details for the account {accountno} are ")
+        # print(_hdr)
+        # print(f"Transaction details for the account {accountno} are ")
         reslist = []
         for tr in query:
             amt = tr.amount

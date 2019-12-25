@@ -18,9 +18,10 @@ class BalEnquiryButtonPress(npyscreen.ButtonPress):
             ano = int(self.parent.accoutno.value)
             val = Account.balenquiry(ano)
             self.parent.ResView.values  = [f"Balance     {val:0.3f}"]
+            
             self.parent.display()
-        except ValueError:
-            pass
+        except :
+            npyscreen.notify_wait("Please enter account nubmer")
 
 class ListTransactionsButtonPress(npyscreen.ButtonPress):
     def whenPressed(self):
@@ -31,7 +32,28 @@ class ListTransactionsButtonPress(npyscreen.ButtonPress):
             self.parent.ResView.values = reslist
             self.parent.display()
         except:
-            pass
+            npyscreen.notify_wait("Please enter account nubmer")
+
+
+class DepositButtonPress(npyscreen.ButtonPress):
+    def whenPressed(self):
+        try:
+            ano = int(self.parent.accoutno.value)
+            amount = float(self.parent.AmountView.value)
+            Account.deposit(int(ano), abs(float(amount)))
+        except:
+            npyscreen.notify_wait("Please enter account nubmer")
+
+
+class WithdrawButtonPress(npyscreen.ButtonPress):
+    def whenPressed(self):
+        try:
+            ano = int(self.parent.accoutno.value)
+            amount = float(self.parent.AmountView.value) * -1
+            Account.deposit(int(ano), amount)
+        except:
+            npyscreen.notify_wait("Please enter account nubmer")
+
 
 class UserHomeViewForm(npyscreen.ActionForm):
     def create(self):
@@ -39,16 +61,21 @@ class UserHomeViewForm(npyscreen.ActionForm):
         self.accoutno = self.add(npyscreen.TitleText, name="Enter Account number:", value="")
         self.exitButton = self.add(BalEnquiryButtonPress, name="Balance Enquiry")
         self.lstTransButton = self.add(ListTransactionsButtonPress, name="Transaction list")
-        self.ResView = self.add(npyscreen.BoxTitle, name="Query", max_height=6)
+        self.ResView = self.add(npyscreen.BoxTitle, name="Query Result", max_height=6)
+        self.AmountView = self.add(npyscreen.TitleText, name="Amount", value="0.00", max_height=6)
+        self.depBtn = self.add(DepositButtonPress, name ="Deposit")
+        self.wdBtn = self.add(WithdrawButtonPress, name="Widthdraw")
+        
         self.ResView.entry_widget.scroll_exit = True
+        
         
     def on_ok(self):
         self.parentApp.change_form("MAIN")
     
     def bal_enquiry(self):
         pass
-        
-    
+
+
 
 _hdr  = "\n"*2 +36*"#" + "\n"*2 
 user_home_contents = """

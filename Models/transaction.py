@@ -11,7 +11,7 @@ import datetime
 
 class Transaction:
     def __init__(self):
-        print("exixting account functions")
+        #print("exixting account functions")
         self.amount =0
         
 

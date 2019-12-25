@@ -12,7 +12,7 @@ import npyscreen
 sys.path.append("/home/admaren/Documents/BankManagementSys")
 from Views.welcome import Welcome_contents, MainForm
 from Views.UserHomeView import user_home_contents_viewfunc, UserHomeViewForm
-from Views.manageaccountview import manage_account_viewfunc
+from Views.manageaccountview import manage_account_viewfunc, ManageAccountForm, AddNewUserForm
 
 
 
@@ -20,14 +20,13 @@ class MyTestApp(npyscreen.NPSAppManaged):
     def onStart(self):
         # When Application starts, set up the Forms that will be used.
         # These two forms are persistent between each edit.
+        npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
         self.addForm("MAIN", MainForm, name="Banking Management System", color="IMPORTANT",)
         self.addForm("USER", UserHomeViewForm, name="User View")
+        self.addForm("AMAN", ManageAccountForm, name="Manage Account")
+        self.addForm("NUSER", AddNewUserForm,name="Add new User")
        
-        # self.addForm("SECOND",     MainForm, name="Screen 2", color="WARNING",  )
-        # # This one will be re-created each time it is edited.
-        # self.addFormClass("THIRD", MainForm, name="Screen 3", color="CRITICAL",)
-        # self.addForm("FT", myEmployeeForm, name="sd")
-        
+            
     def onCleanExit(self):
         npyscreen.notify_wait("Goodbye!")
     

@@ -28,11 +28,12 @@ class User:
     def ListUsers():
         q = UserModel.select()
         
-        
+        res = []
         for v in q:
             aq = AccountModel.select().join(UserModel).where(UserModel.id==v.id).execute()
-            print(f"Username :{v.Name}   AccountNumber:{aq[0].id}")
-        input("Press any key to continue...")
+            res.append(f"Username :{v.Name}   AccountNumber:{aq[0].id}")
+        #input("Press any key to continue...")
+        return res
         
     @staticmethod
     def Balance():

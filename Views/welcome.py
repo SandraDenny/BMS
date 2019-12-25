@@ -43,6 +43,11 @@ class MainForm(npyscreen.ActionForm):
         if self.chosen.value[0] == 1:
             #raise Exception(self.chosen.value)
             self.parentApp.change_form("USER")
+        if self.chosen.value[0] == 0:
+            self.parentApp.change_form("AMAN")
+    
+    def on_cancel(self):
+        self.parentApp.change_form(None)
 
     # def change_forms(self, *args, **keywords):
     #     if self.name == "Screen 1":

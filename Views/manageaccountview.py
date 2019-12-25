@@ -8,12 +8,83 @@ Created on Fri Nov 22 18:01:11 2019
 """
 
 import sys
+import npyscreen
 
 sys.path.append("/home/admaren/Documents/BankManagementSys")
 
 _hdr  = "\n"*2 +36*"#"+"\n"*2 
 
 from Models import User, Account, Transaction
+
+class AddUserButtonPush(npyscreen.ButtonPress):
+    def whenPressed(self):
+        
+        u = User()
+        u.Name = self.parent.uname.value
+        u.Address = self.parent.address.value
+        u.DOB = self.parent.dob.value
+        
+        umodel = u.AddToDB()
+        
+        amt = float(self.parent.initamount.value)
+        
+        atype = "SAVINGS"
+        if self.parent.aType.values[0] == 0:
+            atype = "SAVINGS"
+        if self.parent.aType.values[0] == 1:
+            atype = "CURRENTS"
+        
+        
+        amodel = Account.AccountAddToDB(umodel, atype)
+        
+        # amt = float(self.initamount.value)
+        t0 = Transaction()
+    
+        t0.amount = float(amt)
+        t0.addTransactionToDB(amodel)
+
+class ListUserButtonPuse(npyscreen.ButtonPress):
+    def whenPressed(self):
+        self.parent.ResView.values = User.ListUsers()
+        self.parent.display()
+
+class AddNewUserForm(npyscreen.ActionFormV2):
+    def create(self):
+        self.uname = self.add(npyscreen.TitleText, name ="User Name")
+        self.address = self.add(npyscreen.TitleText, name ="Address")
+        self.dob = self.add(npyscreen.TitleDateCombo, name="DOB")
+        self.initamount = self.add(npyscreen.TitleText,\
+                                   name="Inital Deposit amout",
+                                   value ="500.0")
+        self.aType = self.add(npyscreen.TitleSelectOne, max_height=4,
+                              name="Account Type",
+                              scroll_exit= True, \
+                                  values=["SAVINGS", "CURRENT"])
+        self.AddUser = self.add(AddUserButtonPush, name="Add User")
+    
+    def on_cancel(self):
+        self.parentApp.change_form("AMAN")
+
+
+class ManageAccountForm(npyscreen.ActionForm):
+    def create(self):
+        self.title = self.add(npyscreen.FixedText,
+                              name="title", value ="Account management")
+        self.chosen = self.add(npyscreen.TitleSelectOne,
+                               max_height=6,
+                               scroll_exit = True,\
+                               name="AChoice", \
+                                   values =["Add New Account", "Close Account"])
+        self.res = self.add(ListUserButtonPuse, name="List users")
+        self.ResView = self.add(npyscreen.BoxTitle, name="Query Result")
+    
+    def on_cancel(self):
+        self.parentApp.change_form("MAIN")
+    
+    def on_ok(self):
+        if self.chosen.value[0] == 0:
+            self.parentApp.change_form("NUSER")
+
 
 manage_accounts_contents="""
 
@@ -59,17 +130,12 @@ def add_new_account_func():
     print(f"entered DOB is {DOB}")
     
     umodel = newuser.AddToDB()
-    
-
-    
     typ = uaccounttypefunc()
     amodel = Account.AccountAddToDB(umodel, typ)
     
     uinitialdeposit = input("please enter your initial amount of deposit (not less than 500):")
     print(f"entered initial amount of deposit is {uinitialdeposit}")
-    
     t0 = Transaction()
-    
     t0.amount = float(uinitialdeposit)
     t0.addTransactionToDB(amodel)
 #    newuser.putInitialDeposit(float(uinitialdeposit))
